@@ -26,6 +26,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: Run Gitleaks secret scan
+      uses: gitleaks/gitleaks-action@v2
+      with:
+        config-path: .github/gitleaks.toml  # optional custom config
+        continue-on-error: true  # Don't fail the build (yet)
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
